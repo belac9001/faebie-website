@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Uh oh!</title>
+</head>
+<body>
+    <h1>Something went wrong!</h1>
+    <h2>I'm probably sleeping</h2>
+    <a href="/">Take me home >:(</a>
+
+    <table>
+        <tr>
+            <td>Error</td>
+            <td th:text="${err}"></td>
+        </tr>
+        <tr>
+            <td>Exception</td>
+            <td th:text="${exception}"></td>
+        </tr>
+    </table>
+</body>
+</html>

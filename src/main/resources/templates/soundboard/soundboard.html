@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/base}" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Loatis - D&D Soundboard</title>
+</head>
+<body>
+    <a href="/">take me home >:(</a><br>
+
+    <form action="#" th:action="@{/soundboard}" th:object="${video}" method="post">
+        <input type="text" th:field="*{videoUrl}" />
+        <input type="submit" name="action" value="Add Video" />
+        <input type="submit" name="action" value="Clear" />
+        <input type="submit" name="action" value="Test" />
+    </form>
+
+    <tr th:each="video : ${videos}">
+        <iframe id="player" width="640" height="390" th:src="${video.embedUrl}"></iframe>
+    </tr>
+
+</body>
+</html>
