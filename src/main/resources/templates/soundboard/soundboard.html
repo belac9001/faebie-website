@@ -10,12 +10,12 @@
 
     <form action="#" th:action="@{/soundboard}" th:object="${video}" method="post">
         <input type="text" th:field="*{videoUrl}" />
-        <input type="submit" name="action" value="Add Video" />
-        <input type="submit" name="action" value="Clear" />
+        <input type="submit" name="add_video" value="Add Video" />
+        <input type="submit" name="clear_soundboard" value="Clear" />
         <input type="submit" name="action" value="Test" />
     </form>
 
-    <tr th:each="video : ${videos}">
+    <tr th:each="video : ${soundboard.videos}">
         <iframe id="player" width="640" height="390" th:src="${video.embedUrl}"></iframe>
     </tr>
 
