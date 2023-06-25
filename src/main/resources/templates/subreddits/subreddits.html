@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/base}" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>D&D Subreddit Index</title>
+</head>
+<body>
+
+<h1>Subreddit Index</h1>
+<ul th:each="subreddit : ${indexedSubreddits}">
+    <li th:text="${subreddit}"></li>
+</ul>
+
+</body>
+</html>
