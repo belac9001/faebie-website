@@ -1,7 +1,10 @@
-package org.faebie.website.subreddits;
+package org.faebie.website.subreddits.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.faebie.website.subreddits.IndexRepository;
+import org.faebie.website.subreddits.IndexService;
+import org.faebie.website.subreddits.model.Subreddit;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +23,8 @@ public class SubmissionIndexController {
     }
 
     @GetMapping("/subreddits")
-    public String displayIndexedSubreddits(final Model model) throws IOException {
-        final List<String> indexedSubreddits = indexService.getIndexedSubreddits();
+    public String displayIndexedSubreddits(final Model model) {
+        final List<Subreddit> indexedSubreddits = IndexRepository.getAllSubreddits();
         model.addAttribute("indexedSubreddits", indexedSubreddits);
         return "subreddits/subreddits";
     }
