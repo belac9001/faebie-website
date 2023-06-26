@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public interface Submission {
     String id();
+    @JsonProperty("name") @Value.Default default String submissionId() {
+        return id();
+    }
     Subreddit subreddit();
     String title();
     @JsonProperty("selftext") String text();
