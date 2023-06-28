@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.faebie.website.subreddits.model.Comment;
-import org.faebie.website.subreddits.model.Submission;
+import org.faebie.website.subreddits.comment.commentimport.CommentImportDTO;
+import org.faebie.website.subreddits.submission.submissionimport.SubmissionImportDTO;
 import org.faebie.website.subreddits.model.Subreddit;
 
 import java.io.BufferedReader;
@@ -23,17 +23,18 @@ public final class SubredditIndexingUtility {
 
     public static void loadSubreddits() {
         IndexRepository.addSubreddit(new Subreddit("DMAcademy"));
+        log.info("Loaded {} subreddits", IndexRepository.getAllSubreddits().size());
     }
 
-    public static List<Submission> deserializeSubmissions(final String path) {
-        final List<Submission> submissions = new ArrayList<>();
+    public static List<SubmissionImportDTO> deserializeSubmissions(final String path) {
+        final List<SubmissionImportDTO> submissions = new ArrayList<>();
 
         String line = "";
         try (final FileReader reader = new FileReader(path);
              final BufferedReader bufferedReader = new BufferedReader(reader)) {
             while ((line = bufferedReader.readLine()) != null) {
                 try {
-                    submissions.add(OBJECT_MAPPER.readValue(line, Submission.class));
+                    submissions.add(OBJECT_MAPPER.readValue(line, SubmissionImportDTO.class));
                 } catch (final JsonProcessingException e) {
                     log.error("Could not deserialize {} to Submission", line, e);
                     log.warn("Continuing with submission deserialization...");
@@ -45,9 +46,6 @@ public final class SubredditIndexingUtility {
         } catch (final IOException e) {
             log.error("Failed to read file at path {}", path);
             throw new RuntimeException(e);
-        } catch (final OutOfMemoryError e) {
-            log.error("Ran out of memory when deserializing submissions", e);
-            log.error("Returning the deserialized submissions");
         }
 
         return submissions;
@@ -56,20 +54,23 @@ public final class SubredditIndexingUtility {
     /**
      * TODO: Optimize this to prevent OutOfMemory exception
      */
-    public static List<Comment> deserializeComments(final String path) {
-        final List<Comment> comments = new ArrayList<>();
+    public static List<CommentImportDTO> deserializeComments(final String path) {
+        final List<CommentImportDTO> comments = new ArrayList<>();
 
+        int linesRead = 0;
         String line = "";
         try (final FileReader reader = new FileReader(path);
              final BufferedReader bufferedReader = new BufferedReader(reader)) {
             while ((line = bufferedReader.readLine()) != null) {
+                log.info(line);
+                /**
                 try {
                     comments.add(OBJECT_MAPPER.readValue(line, Comment.class));
                 } catch (final JsonProcessingException e) {
                     log.error("Could not deserialize {} to Comment", line, e);
                     log.warn("Continuing with comment deserialization...");
                     throw new RuntimeException(e);
-                }
+                }**/
             }
         }  catch (final FileNotFoundException e) {
             log.error("Could not find file at path {}", path);
@@ -79,7 +80,7 @@ public final class SubredditIndexingUtility {
             throw new RuntimeException(e);
         }
 
-        return comments;
+        return List.of();
     }
 
     private SubredditIndexingUtility() {

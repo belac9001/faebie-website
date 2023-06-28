@@ -1,6 +1,7 @@
 package org.faebie.website.subreddits;
 
 import org.faebie.website.subreddits.model.Subreddit;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;

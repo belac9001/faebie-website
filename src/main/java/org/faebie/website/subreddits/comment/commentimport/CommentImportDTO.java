@@ -1,27 +1,29 @@
-package org.faebie.website.subreddits.model;
+package org.faebie.website.subreddits.comment.commentimport;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.faebie.website.subreddits.model.Subreddit;
 import org.immutables.value.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 @Value.Immutable
-@JsonDeserialize(as = ImmutableComment.class)
+@JsonDeserialize(as = ImmutableCommentImportDTO.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public interface Comment {
+public interface CommentImportDTO {
 
-    String id();
+    @JsonProperty("id") String id();
+    @JsonProperty("subreddit")
     Subreddit subreddit();
-    String author();
-    String body();
+    @JsonProperty("author") String author();
+    @JsonProperty("body") String body();
     @JsonProperty("link_id") String submissionId();
     @JsonProperty("parent_id") String parentId();
-    int score();
-    @Value.Default default int ups() {
+    @JsonProperty("score") int score();
+    @JsonProperty("ups") @Value.Default default int ups() {
         return 0;
     }
-    int controversiality();
+    @JsonProperty("controversiality") int controversiality();
     @JsonProperty("created_utc") long created(); // Time created in UTC
 }
