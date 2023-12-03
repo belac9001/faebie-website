@@ -5,8 +5,10 @@ import org.apache.logging.log4j.Logger;
 import org.faebie.website.subreddits.SubredditIndexingUtility;
 import org.faebie.website.subreddits.comment.commentimport.CommentImportDTO;
 import org.faebie.website.subreddits.submission.submissionimport.SubmissionImportDTO;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.List;
@@ -19,8 +21,7 @@ public class WebsiteApplication {
 	private static final String COMMENTS_PATH = "./src/main/resources/data/subreddits/comments/DMAcademy_comments";
 
 	public static void main(String[] args) {
-		log.info("loading subreddits...");
-		SubredditIndexingUtility.loadSubreddits();
+		SpringApplication.run(WebsiteApplication.class, args);
 		/**
 
 		log.info("deserializing submissions...");
@@ -35,8 +36,12 @@ public class WebsiteApplication {
 		end = System.currentTimeMillis();
 		log.info("deserialized {} comments in {}ms", comments.size(), end - start);
 		**/
-		log.info("running spring application...");
-		SpringApplication.run(WebsiteApplication.class, args);
+	}
+
+	@Bean
+	CommandLineRunner loadSubreddits() {
+		log.info("loading subreddits...");
+		return args -> SubredditIndexingUtility.loadSubreddits();
 	}
 
 }

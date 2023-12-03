@@ -2,8 +2,8 @@ package org.faebie.website.subreddits.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.nio.file.*;
 
 public abstract class ImportService {
     protected static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-    protected final Logger log = LoggerFactory.getLogger(getClass());
+    protected static final Logger log = LogManager.getLogger(ImportService.class);
 
     protected String importInputPath;
     protected String importDLQPath;
