@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 @Value.Immutable
 public interface Comment {
     String id();
-    Subreddit subreddit();
-    String author();
-    String body();
     String submissionId();
     String parentId();
+    Subreddit subreddit();
+    String body();
+    String author();
     int score();
     int ups();
     int controversiality();

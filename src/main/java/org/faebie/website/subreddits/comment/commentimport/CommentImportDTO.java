@@ -14,8 +14,7 @@ import org.springframework.stereotype.Component;
 public interface CommentImportDTO {
 
     @JsonProperty("id") String id();
-    @JsonProperty("subreddit")
-    Subreddit subreddit();
+    @JsonProperty("subreddit") Subreddit subreddit();
     @JsonProperty("author") String author();
     @JsonProperty("body") String body();
     @JsonProperty("link_id") String submissionId();
